@@ -48,10 +48,10 @@
             statusIcon="@{asteroid.potentiallyHazardous}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@{asteroid.potentiallyHazardous?@string/potentially_hazardous_asteroid_image:@string/not_hazardous_asteroid_image}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription"
             tools:src="@drawable/ic_status_normal" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

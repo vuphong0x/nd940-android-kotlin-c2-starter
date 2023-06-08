@@ -21,9 +21,10 @@ class AsteroidRepository(private val database: AsteroidDatabase) {
 
     val weekAsteroids: LiveData<List<Asteroid>> =
         database.asteroidDao.getWeekAsteroid(
-            getNextSevenDaysFormattedDates().first(),
+            getNextSevenDaysFormattedDates().first() + 1,
             getNextSevenDaysFormattedDates().last()
         ).map {
+            it.subList(1, it.size)
             it.asDomainModel()
         }
 
@@ -44,6 +45,12 @@ class AsteroidRepository(private val database: AsteroidDatabase) {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    suspend fun deleteAsteroidsPreviousDate() {
+        withContext(Dispatchers.IO) {
+            database.asteroidDao.deleteAsteroidPreviousDate(getNextSevenDaysFormattedDates().first())
         }
     }
 }
